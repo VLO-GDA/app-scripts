@@ -2,6 +2,15 @@ var CLASSES_PER_DAY = 10;
 var sheet = SpreadsheetApp.openById("1IR86M691RktPGQUlAMyuJxe4S6Z4tsxylB-lnKhTnDE").getSheets()[0];
 
 /**
+ * Converts time in hh.mm format to number of minutes since 00:00
+ * {String} time in format hh.mm
+ **/
+function _getMinutes(time) {
+    var split = time.split(".");
+    return parseInt(split[0])*60+parseInt(split[1]);
+}
+
+/**
  * Parses timetable and returns a json object containing class hours
  **/
 function getHours() {
@@ -13,8 +22,8 @@ function getHours() {
     for (var hours in values) {
         var split = values[hours][0].split("-");
         result.hours.push({
-            from: split[0],
-            to: split[1]
+            from: _getMinutes(split[0]),
+            to: _getMinutes(split[1])
         });
     }
     return JSON.stringify(result);
