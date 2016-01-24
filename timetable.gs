@@ -7,7 +7,7 @@ var sheet = SpreadsheetApp.openById("1IR86M691RktPGQUlAMyuJxe4S6Z4tsxylB-lnKhTnD
  **/
 function _getMinutes(time) {
     var split = time.split(".");
-    return parseInt(split[0])*60+parseInt(split[1]);
+    return parseInt(split[0]) * 60 + parseInt(split[1]);
 }
 
 /**
@@ -53,10 +53,12 @@ function getTimetable(group) {
             //One spacing row, 2 shifted from the top
             values = sheet.getRange(2 + ((CLASSES_PER_DAY + 1) * i), (parseInt(cell) + 1), CLASSES_PER_DAY, 2).getValues();
             for (var j = 0; j < CLASSES_PER_DAY; j++) {
-                result.classes[i][j] = {
-                    name: values[j][0],
-                    room: values[j][1]
-                };
+                if (values[j][0]) {
+                    result.classes[i][j] = {
+                        name: values[j][0],
+                        room: values[j][1]
+                    };
+                }
             }
         }
         return JSON.stringify(result);
