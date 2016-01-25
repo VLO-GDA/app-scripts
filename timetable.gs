@@ -39,7 +39,7 @@ function getTimetable(group) {
   var values = range.getValues();
   //Sheet name has to be in yyyy/mm/dd format
   var result = {
-    update: new Date(sheet.getName()).getTime(),
+    update: new Date(timetable.getName()).getTime(),
     classes: []
   };
 
