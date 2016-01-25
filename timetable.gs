@@ -1,5 +1,5 @@
 var CLASSES_PER_DAY = 10;
-var sheet = SpreadsheetApp.openById("1IR86M691RktPGQUlAMyuJxe4S6Z4tsxylB-lnKhTnDE").getSheets()[0];
+var timetable = SpreadsheetApp.openById("1IR86M691RktPGQUlAMyuJxe4S6Z4tsxylB-lnKhTnDE").getSheets()[0];
 
 /**
  * Converts time in hh.mm format to number of minutes since 00:00
@@ -15,10 +15,10 @@ function _getMinutes(time) {
  **/
 function getHours() {
   var result = {
-    update: new Date(sheet.getName()).getTime(),
+    update: new Date(timetable.getName()).getTime(),
     hours: []
   };
-  var values = sheet.getRange(2, 3, CLASSES_PER_DAY).getValues();
+  var values = timetable.getRange(2, 3, CLASSES_PER_DAY).getValues();
   for (var hours in values) {
     var split = values[hours][0].split("-");
     result.hours.push({
@@ -34,8 +34,8 @@ function getHours() {
  * @param {String} group
  **/
 function getTimetable(group) {
-  //Fetch    classes   row, startColumn, noRows, noColumns
-  var range = sheet.getRange(1, 1, 1, sheet.getLastColumn() - 3);
+  //Fetch      classes     row, startColumn, noRows, noColumns
+  var range = timetable.getRange(1, 1, 1, timetable.getLastColumn() - 3);
   var values = range.getValues();
   //Sheet name has to be in yyyy/mm/dd format
   var result = {
@@ -51,7 +51,7 @@ function getTimetable(group) {
     for (var i = 0; i < 5; i++) {
       result.classes.push([]);
       //One spacing row, 2 shifted from the top
-      values = sheet.getRange(2 + ((CLASSES_PER_DAY + 1) * i), (parseInt(cell) + 1), CLASSES_PER_DAY, 2).getValues();
+      values = timetable.getRange(2 + ((CLASSES_PER_DAY + 1) * i), (parseInt(cell) + 1), CLASSES_PER_DAY, 2).getValues();
       for (var j = 0; j < CLASSES_PER_DAY; j++) {
         if (values[j][0]) {
           result.classes[i][j] = {
