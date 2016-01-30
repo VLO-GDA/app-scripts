@@ -15,12 +15,11 @@ function update() {
       quotesSheet.appendRow([quote.message, quote.created_time, quote.id, false]);
     } else {
       //If quote was found that means it's all up to date.
-      Logger.log("hey");
       return;
     }
   }
 }
-  
+
 function isQuotePresent(id) {
   //Yup, slow as ....
   for(var i=quotesSheet.getLastRow();i>1;i--) {
@@ -34,7 +33,7 @@ function isQuotePresent(id) {
 function getRandomQuote() {
   var row = [null,null,null,true];
   while(row[3]) {
-    row = quotesSheet.getRange(Math.floor(Math.random()*quotesSheet.getLastRow())+2, 1, 1, 4).getValues()[0];
+    row = quotesSheet.getRange(Math.floor(Math.random()*(quotesSheet.getLastRow()-2))+2, 1, 1, 4).getValues()[0];
   }
   var response = {update: new Date().getTime(), quote: {
     message: row[0],
