@@ -1,4 +1,3 @@
-var password = "";
 //Google forms can't be protected, so we decided to add additional password field
 var luckyNumber = SpreadsheetApp.openById("10RW_TNyLvqrueEiBxcmob4SbJEsJU9S5UWpG6Tj6a1I").getSheets()[0];
 

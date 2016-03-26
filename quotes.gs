@@ -1,4 +1,3 @@
-var access_token = "";
 var url = "https://graph.facebook.com/v2.5/CytatyNauczycieliZVLoWGdansku/feed?access_token="+access_token+"&limit=100";
 var quotesSheet = SpreadsheetApp.openById("12EDue1V28Tr1AUtiJkmpd9WKP7A5cABCWgkil6VZw30").getSheets()[0];
 
@@ -21,9 +20,9 @@ function update() {
 }
 
 function isQuotePresent(id) {
-  //Yup, slow as ....
-  for(var i=quotesSheet.getLastRow();i>1;i--) {
-    if(quotesSheet.getRange(i, 3).getValue() == id) {
+  var values = quotesSheet.getRange(1, 1, quotesSheet.getLastRow(),3).getValues();
+  for(var i=values.length-1;i>0;i--) {
+    if(values[i][2] == id) {
       return true;
     }
   }
